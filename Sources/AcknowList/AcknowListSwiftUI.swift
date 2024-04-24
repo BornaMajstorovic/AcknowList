@@ -90,10 +90,8 @@ public struct AcknowListSwiftUIView: View {
     public var body: some View {
         #if os(iOS) || os(tvOS)
         List {
-            Section(header: HeaderFooter(text: headerText), footer: HeaderFooter(text: footerText)) {
-                ForEach (acknowledgements) { acknowledgement in
-                    AcknowListRowSwiftUIView(acknowledgement: acknowledgement)
-                }
+            ForEach (acknowledgements) { acknowledgement in
+                AcknowListRowSwiftUIView(acknowledgement: acknowledgement)
             }
         }
         .listStyle(GroupedListStyle())
@@ -124,6 +122,7 @@ public struct AcknowListRowSwiftUIView: View {
         if acknowledgement.text != nil || canFetchLicenseFromGitHubAndIsGitHubRepository(acknowledgement) {
             NavigationLink(destination: AcknowSwiftUIView(acknowledgement: acknowledgement)) {
                 Text(acknowledgement.title)
+                .foregroundColor(.red)
             }
         }
         else if let repository = acknowledgement.repository,
